@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .table-container {
+            margin: 50px auto;
+            max-width: 80%;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table img {
+            border-radius: 10px;
+        }
+        .back-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container text-center">
+        <h1 class="mt-4 text-primary">📦 List Order User</h1>
+        <div class="table-container">
+            <table class="table table-bordered table-hover text-center">
+                <thead>
+                    <tr>
+                        <th>ID Bill</th>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>User</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="Bill : ${OrderList}">
+                        <td th:text="${Bill.IDBill}"></td>
+                        <td th:text="${Bill.product.tenSanPham}"></td>
+                        <td><img th:src="${Bill.product.img}" class="img-fluid" style="width: 100px; height: auto;"></td>
+                        <td th:text="${Bill.user.ten}"></td>
+                        <td th:text="${Bill.soLuong}"></td>
+                        <td class="text-success fw-bold" th:text="${Bill.tongGiaTiem} + ' $'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a th:href="@{/}" class="btn btn-primary back-btn">⬅ Back To Main</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

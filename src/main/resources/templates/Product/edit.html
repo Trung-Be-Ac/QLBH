@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, button {
+            padding: 8px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <form th:action="@{/editProduct}" method="post">
+        <input type="hidden" name="idProduct3" th:value="${Product.IDProduct}">
+
+        <label for="nameproduct3">Product Name:</label>
+        <input type="text" id="nameproduct3" name="nameproduct3" placeholder="Enter product name" th:value="${Product.tenSanPham}" required>
+
+        <label for="Type3">Product Type:</label>
+        <select id="Type3" name="Type3" required>
+            <option value="" disabled selected>Select Type</option>
+            <option th:each="type : ${TypeList}" th:value="${type.IDTypeProduct}" th:text="${type.NameTypeProduct}" 
+                th:selected="${type.IDTypeProduct == Product.typeProduct.IDTypeProduct}"></option>
+        </select>
+
+        <label for="price3">Price:</label>
+        <input type="number" id="price3" name="price3" placeholder="Enter price" th:value="${Product.giaTien}" required min="0">
+
+        <label for="quantity3">Quantity:</label>
+        <input type="number" id="quantity3" name="quantity3" placeholder="Enter quantity" th:value="${Product.soLuong}" required min="0">
+
+        <label for="img3">Image URL:</label>
+        <input type="text" id="img3" name="img3" placeholder="Enter image URL" th:value="${Product.img}">
+
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <h2>Product Image</h2>
+    <div>
+        <img th:src="${Product.img}" alt="Product Image">
+    </div>
+
+    <a th:href="@{/}">Back To Main</a>
+</body>
+</html>

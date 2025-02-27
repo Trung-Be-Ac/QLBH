@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 450px;
+            display: grid;
+            gap: 15px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            display: grid;
+            gap: 8px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .buttons a {
+            padding: 12px 25px;
+            text-decoration: none;
+            background: #ff9800;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .buttons a:hover {
+            background: #e68900;
+            transform: translateY(-3px);
+        }
+
+        .back a {
+            display: block;
+            margin-top: 15px;
+            color: #ddd;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .back a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PRODUCT DETAIL</h1>
+        <img th:src="${ProductDetail.img}" alt="Product Image">
+        <div class="product-info">
+            <h3>ID: <span th:text="${ProductDetail.IDProduct}"></span></h3>
+            <h3>Owner: <span th:text="${ProductDetail.User.ten}"></span></h3>
+            <h3>Name: <span th:text="${ProductDetail.tenSanPham}"></span></h3>
+            <h3>Type: <span th:text="${ProductDetail.typeProduct.NameTypeProduct}"></span></h3>
+            <h3>Price: $<span th:text="${ProductDetail.giaTien}"></span></h3>
+            <h3>Stock: <span th:text="${ProductDetail.soLuong}"></span></h3>
+        </div>
+        <div class="buttons">
+            <a th:if="${session.AfterLogin == null or (session.AfterLogin.roleUser != 'Seller' and session.AfterLogin.roleUser != 'Admin')}"
+                th:href="@{/showOrder/{IDProduct}(IDProduct=${ProductDetail.IDProduct})}">Buy Now</a>
+            <a th:if="${session.AfterLogin == null or (session.AfterLogin.roleUser != 'Seller' and session.AfterLogin.roleUser != 'Admin')}"
+                th:href="@{/addToCart/{IDProduct}(IDProduct=${ProductDetail.IDProduct})}">Add to Cart</a>
+        </div>
+        <div class="back">
+            <a th:href="@{/}">← Back to Main</a>
+        </div>
+    </div>
+</body>
+
+</html>

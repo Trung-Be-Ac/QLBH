@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - VIP PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        h1 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        label {
+            font-size: 14px;
+            font-weight: 400;
+            text-align: left;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background: #198754;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #198754;
+            transform: scale(1.05);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #198754;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Add Product</h1>
+        <form th:action="@{/addProduct}" method="post">
+            <input type="text" name="nameproduct2" placeholder="Enter product name" required>
+
+            <select name="Type" required>
+                <option value="" disabled selected>Select Type</option>
+                <option th:each="type : ${TypeList}" th:value="${type.IDTypeProduct}" th:text="${type.NameTypeProduct}"></option>
+            </select>
+
+            <input type="number" name="price2" placeholder="Enter price" required min="0">
+            <input type="number" name="quantity2" placeholder="Enter quantity" required min="0">
+            <input type="text" name="img2" placeholder="Enter image URL">
+
+            <button type="submit">Add Product</button>
+        </form>
+
+        <a class="back-link" th:href="@{/}">Back To Main</a>
+    </div>
+
+</body>
+
+</html>
